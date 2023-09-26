@@ -47,6 +47,14 @@ public class UserController {
             @ApiResponse(code=404,message = "No user found"),
             @ApiResponse(code=500,message = "")
     })
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUser(@RequestParam String keyword) {
+        List<UserDto> users = userService.searchUser(keyword);
+      return ResponseEntity.ok(users);
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable int id) {
         UserDto result = userService.getUserById(id);
@@ -101,7 +109,7 @@ public class UserController {
 
         MultipartFile fileData = form.getFileData();
         String name = fileData.getOriginalFilename();
-        if (name != null && name.length() > 0) {
+        if (name != null &&  name.length() > 0) {
             try {
                 // Create file
                 File serverFile = new File(UPLOAD_DIR + "/" + name);

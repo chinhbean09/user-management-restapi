@@ -101,4 +101,16 @@ public class UserServiceImpl implements UserService {
 
         throw new NotFoundException("No user found");
     }
+
+    @Override
+    public List<UserDto> searchUser(String keyword) {
+        List<UserDto> result = new ArrayList<>();
+        for (User user : users) {
+            //method contains để tìm kiếm các user có tên chứa từ khóa
+            if(user.getName().contains(keyword)){
+                result.add(UserMapper.toUserDto(user));
+            }
+        }
+        return result;
+    }
 }

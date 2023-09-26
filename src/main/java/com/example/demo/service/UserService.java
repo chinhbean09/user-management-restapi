@@ -18,4 +18,6 @@ public interface UserService {
     public UserDto updateUser(UpdateUserReq req, int id);
 
     public boolean deleteUser(int id);
+    //viết hàm đọc dữ liệu trong service theo keyword trả vè list Object Dto
+    public List<UserDto> searchUser(String keyword);
 }
