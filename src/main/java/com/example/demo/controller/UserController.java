@@ -35,7 +35,10 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code=500,message = "")
     })
+//    @RequestMapping(value ="/users", method = RequestMethod.GET)
     @GetMapping("")
+    //Lấy ra danh sách User sao đó trả về cho client
+    //gọi hàm getListUser của userService rồi trả về kết quả
     public ResponseEntity<?> getListUser() {
         List<UserDto> result = userService.getListUser();
 
@@ -48,15 +51,20 @@ public class UserController {
             @ApiResponse(code=500,message = "")
     })
 
-    @GetMapping("/search")
+    //API của phương thức này là: users/search?keyword=
+    @GetMapping("/search")//phần trước dấu ?
     public ResponseEntity<?> searchUser(@RequestParam String keyword) {
+        //@RequestParam để binding data, có bao nhiêu parameter thì sẽ có bấy nhiêu @RequestParam + tham số
+        //tương tự @PathVariable Springboot giup kiếm tra kiểu data của query parameter có khớp với kiểu truyền vào method hay không
         List<UserDto> users = userService.searchUser(keyword);
       return ResponseEntity.ok(users);
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")//để lấy được thông tin thì req client gửi lên buộc phải chứa id của user cần tìm, và được truyền vào link(tham số đường dẫn)
     public ResponseEntity<?> getUserById(@PathVariable int id) {
+        //thêm param @PathVariable để hướng giá trị đến tham số đường dẫn id kia
+        //gọi hàm getListUser của userService rồi trả về kết quả
         UserDto result = userService.getUserById(id);
         return ResponseEntity.ok(result);
     }
@@ -148,3 +156,5 @@ public class UserController {
                 .body(resource);
     }
 }
+//phần xử lý logic ta sẽ viết trong service, rồi từ trong controller gọi sang service,
+// để giảm thiểu sự phụ thuộc giữa controller và service, ta sẽ tạo interface UserService

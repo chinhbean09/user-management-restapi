@@ -6,6 +6,7 @@ import com.example.demo.model.request.CreateUserReq;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserMapper {
+    //Mục đích của class này là convert data từ User sang UserDTO, mục đích là tái sử dụng code
     public static UserDto toUserDto(User user) {
         UserDto tmp = new UserDto();
         tmp.setId(user.getId());

@@ -15,6 +15,7 @@ import java.util.List;
 
 @Component
 public class UserServiceImpl implements UserService {
+    //ta tạo mảng user động trong UserServiceImp thay cho database và thêm sẵn data
     private static ArrayList<User> users = new ArrayList<User>();
 
     static {
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    //trả về 1 mảng động User, và UserController sẽ gọi sang đây để lấy danh sách
     public List<UserDto> getListUser() {
         ArrayList<UserDto> result = new ArrayList<UserDto>();
 
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(int id) {
+        //duyệt mảng users để tìm kiếm, và convert sang UserDto
         for (User user : users) {
             if (user.getId() == id) {
                 return UserMapper.toUserDto(user);

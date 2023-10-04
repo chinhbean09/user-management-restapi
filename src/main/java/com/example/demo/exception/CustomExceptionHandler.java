@@ -6,15 +6,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-@RestControllerAdvice
-public class CustomExceptionHandler {
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+@RestControllerAdvice //có thể trả về 1 view thay vì chỉ trả về 1 cấu trúc JSON
+//mỗi exception sẽ có 1 method handler riêng
+public class CustomExceptionHandler{
+    @ExceptionHandler(NotFoundException.class) //@ExceptionHandler dùng chỉ rõ method này sử lý exception nào
+    @ResponseStatus(HttpStatus.NOT_FOUND)//@ResponseStatus là 1 cách dùng để định nghĩa HttpStatus trả về cho người dùng
+
     public ErrorResponse handlerNotFoundException(NotFoundException ex, WebRequest req) {
         // Log err
 
         return new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
+    //sau khi ta custom xong exception, ta sẽ chỉnh sửa lại hàm trong ServiceImp
 
     @ExceptionHandler(DuplicateRecordException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
